@@ -15,6 +15,11 @@ def channelColorData():
         cmds.setAttr("channelColorData.sourceType", 1)
         return channelBoxColorsData 
 
+def get_existing_data():
+    if cmds.objExists("channelColorData"):
+        get_existing_data = cmds.scriptNode("channelColorData", bs=True, q=True)
+        return get_existing_data 
+
 #Change channel BG box color
 def channelBoxColorOverride():
     #Find pyside widget
@@ -34,7 +39,6 @@ def channelBoxColorOverride():
             """attrRegex='{}',""".format(selected_attribute) +
             """attrBgColor={})""".format(values)+ """\n""") 
         color_data_code = str(color_data)
-        #print(type(color_data_code))
         print(color_data_code)
         return color_data_code  
    
@@ -65,5 +69,9 @@ if color_data != None:
         cmds.scriptNode("channelColorData", edit=True, bs=code)
         
     except:
-        code = node_data_code + "\n" + color_data
-        cmds.scriptNode("channelColorData", edit=True, bs=code)
+        if get_existing_data != ():
+            code = str(get_existing_data()) + "\n" + color_data
+            cmds.scriptNode("channelColorData", edit=True, bs=code)
+        else:  
+            code = node_data_code + "\n" + color_data
+            cmds.scriptNode("channelColorData", edit=True, bs=code)
