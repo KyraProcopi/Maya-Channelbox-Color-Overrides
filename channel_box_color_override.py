@@ -62,13 +62,11 @@ def channelBoxColorOverride():
 channelColorData()  
 color_data = channelBoxColorOverride()
 
-if isinstance(color_data, str):
+if color_data != None:
     try:
         code += "\n" + color_data
         cmds.scriptNode("channelColorData", edit=True, bs=code)
-        print("try ran")
         
     except:
         code = node_data_code + "\n" + color_data
         cmds.scriptNode("channelColorData", edit=True, bs=code)
-        print("else ran")
