@@ -61,9 +61,8 @@ def channelBoxColorOverride():
 #Plug Code intro Script Node
 channelColorData()  
 color_data = channelBoxColorOverride()
-print(color_data)
 
-if color_data != None:
+if isinstance(color_data, str):
     try:
         code += "\n" + color_data
         cmds.scriptNode("channelColorData", edit=True, bs=code)
