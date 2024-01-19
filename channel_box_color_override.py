@@ -66,11 +66,9 @@ if isinstance(color_data, str):
     try:
         code += "\n" + color_data
         cmds.scriptNode("channelColorData", edit=True, bs=code)
+        print("try ran")
         
     except:
-        if get_existing_data != ():
-            code = str(get_existing_data()) + "\n" + color_data
-            cmds.scriptNode("channelColorData", edit=True, bs=code)
-        else:  
-            code = node_data_code + "\n" + color_data
-            cmds.scriptNode("channelColorData", edit=True, bs=code)
+        code = node_data_code + "\n" + color_data
+        cmds.scriptNode("channelColorData", edit=True, bs=code)
+        print("else ran")
