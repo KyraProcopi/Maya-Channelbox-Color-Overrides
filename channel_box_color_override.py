@@ -1,6 +1,7 @@
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 from maya import cmds, OpenMayaUI
+import sys
 
 #Global Variables 
 main_channelbox_name = "mainChannelBox"
@@ -37,7 +38,8 @@ def channelBoxColorOverride(code):
         return color_data_code 
    
     if selected_attributes==None:
-        print("Please select attributes in channel box")
+        sys.stderr.write("Please select attributes in channel box \n")
+        return
         
     else:
         #Color Editor 
@@ -49,7 +51,7 @@ def channelBoxColorOverride(code):
             color_data = color_output.join(color_change(attr)for attr in selected_attributes)
 
         else:
-            print('Editor was dismissed')
+            sys.stderr.write("Editor was dismissed \n")
             return
                       
     #Plug Code intro Script Node 
@@ -68,32 +70,33 @@ def channelBoxColorOverride(code):
 #Select Script Node
 def channelColorData(code):
     if cmds.objExists("channelColorData"):
-        print("Node Exists")
+        sys.stderr.write("Node Exists \n")
         channelBoxColorsData = "channelColorData"
         cmds.select("channelColorData")
         return channelBoxColorsData
     else:
-        print("Script node has not been created. Please apply color overrides to create script node")
+        sys.stderr.write("Script node has not been created. Please apply color overrides to create script node \n")
 
 #Get Exsiting data         
 def get_existing_data(code):
     if cmds.objExists("channelColorData"):
         code = cmds.scriptNode("channelColorData", bs=True, q=True)
-        print("Exisiting Override Data retrieved") 
+        sys.stderr.write("Exisiting Override Data retrieved \n") 
         return code
     else:
-        print("No existing data")        
+        sys.stderr.write("No existing data \n")         
 
 #Reset Overrides
 def reset(code):
     if cmds.objExists("channelColorData"):
         code = node_data_code
         cmds.scriptNode("channelColorData", edit=True, bs=code)
-        print("Overrides restored to default. Please close Maya and re-open")
+        sys.stderr.write("Overrides restored to default. Please close Maya and re-open \n")
     
     else:
-        print("Script node has not been created. Please apply color overrides to create script node")
+        sys.stderr.write("Script node has not been created. Please apply color overrides to create script node \n")
                 
+
 #UI
 cmds.window(menuBar=True, width=255, h=50, s=False)
 cmds.columnLayout( columnAttach=('both', 5), rowSpacing=10, columnWidth=250 )
