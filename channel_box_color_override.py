@@ -94,7 +94,6 @@ def reset(code):
     else:
         print("Script node has not been created. Please apply color overrides to create script node")
                 
-
 #UI
 cmds.window(menuBar=True, width=255, h=50, s=False)
 cmds.columnLayout( columnAttach=('both', 5), rowSpacing=10, columnWidth=250 )
