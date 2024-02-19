@@ -34,7 +34,6 @@ def channelBoxColorOverride(code):
             """attrRegex='{}',""".format(selected_attribute) +
             """attrBgColor={})""".format(values)+ """\n""") 
         color_data_code = str(color_data)
-        print(color_data_code)
         return color_data_code 
    
     if selected_attributes==None:
@@ -51,6 +50,7 @@ def channelBoxColorOverride(code):
 
         else:
             print('Editor was dismissed')
+            return
                       
     #Plug Code intro Script Node 
     if cmds.objExists("channelColorData"):
